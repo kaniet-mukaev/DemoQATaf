@@ -3,6 +3,7 @@ package com.demoqa.pages.adidas.selections;
 import com.demoqa.drivers.DriverManager;
 import com.demoqa.pages.BasePage;
 import io.qameta.allure.Step;
+import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -44,6 +45,14 @@ public class ProductsPage extends BasePage {
     @FindBy(xpath = "//h2[text()='Searched Products']")
     public WebElement searchedProductsHeader;
 
+    @FindBy(xpath = "//button[text()='Continue Shopping']")
+    public WebElement continueShoppingBtn;
+
+    @FindBy(xpath = "//a[@href='/view_cart']/u[text()='View Cart']")
+    public WebElement viewCartBtn;
+
+    @Getter
+    public static int addedToCartProductsCount;
 
     @Step("verify user is navigated to all products page")
     public ProductsPage verifyUserIsNavigatedToProductsPage() {
@@ -102,8 +111,33 @@ public class ProductsPage extends BasePage {
     @Step("Verify all the products related to search are visible")
     public ProductsPage verifySearchedProductsDisplayed(String searchedProductsName) {
         WebElement product = DriverManager.getDriver().findElement(By.xpath(
-                "//div[@class='productinfo text-center']/p[text()='"+searchedProductsName+"']"));
+                "//div[@class='productinfo text-center']/p[contains(text(),'"+searchedProductsName+"')]"));
         assertTrue(product.isDisplayed());
+        return this;
+    }
+
+    @Step("getProductByName")
+    public WebElement getProductByName(String productName) {
+        WebElement product = DriverManager.getDriver().findElement(By.xpath(
+                "//div[@class='productinfo text-center']/p[contains(text(), '"+productName+"')]"));
+        return product;
+    }
+
+    @Step("get product ID number")
+    public int getProductIdByProductName(String productName) {
+        int productIdNumber = allProducts.indexOf(getProductByName(productName)) + 1;
+        return productIdNumber;
+    }
+
+    @Step("Hover over first product and click 'Add to cart'")
+    public ProductsPage addProductToCardByName(String productName) {
+        WebElement addToCartBtnByProductNumber = DriverManager.getDriver()
+                .findElement(By.xpath(
+                        "//a[@data-product-id='"
+                                +getProductIdByProductName(productName)+
+                                "' and @class='btn btn-default add-to-cart'])[2]"));
+        actions.click(addToCartBtnByProductNumber);
+        addedToCartProductsCount ++;
         return this;
     }
 }

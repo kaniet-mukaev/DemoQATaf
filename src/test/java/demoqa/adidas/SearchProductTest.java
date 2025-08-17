@@ -8,7 +8,7 @@ public class SearchProductTest extends BaseTest {
 
     @Test
     public void searchProductTest() {
-        var productName = "Blue Top";
+        var productName = "Summer White Top";
         open(HomePage.class)
                 .verifyPageIsLoaded()
                 .clickProductsBtn()
