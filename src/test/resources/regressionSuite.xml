@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Regression Suite">
+    <listeners>
+        <listener class-name="com.demoqa.listeners.ScreenShotListener"></listener>
+    </listeners>
+    <test verbose="2" preserve-order="true" name="/Users/kaniet/IdeaProjects/DemoQATaf">
+        <classes>
+            <class name="demoqa.AlertsFrameWindows.IframeTest">
+                <methods>
+                    <include name="iframeTest"/>
+                </methods>
+            </class>
+            <class name="demoqa.AlertsFrameWindows.WindowsTabsTest">
+                <methods>
+                    <include name="testWindowTab"/>
+                </methods>
+            </class>
+            <class name="demoqa.adidas.BrandsTest">
+                <methods>
+                    <include name="chooseCategoriesTest"/>
+                </methods>
+            </class>
+            <class name="demoqa.elements.ButtonsTest">
+                <methods>
+                    <include name="buttonsTest"/>
+                </methods>
+            </class>
+            <class name="demoqa.elements.CheckBoxTest">
+                <methods>
+                    <include name="textBoxTest"/>
+                </methods>
+            </class>
+            <class name="demoqa.elements.OrangeHRMLifeTest">
+                <methods>
+                    <include name="positiveLoginTest"/>
+                    <include name="negativeLoginTest"/>
+                </methods>
+            </class>
+            <class name="demoqa.elements.TextBoxTest">
+                <methods>
+                    <include name="textBoxTest"/>
+                </methods>
+            </class>
+            <class name="demoqa.elements.WebTablesPageTest">
+                <methods>
+                    <include name="addNewEmployeeTest"/>
+                </methods>
+            </class>
+            <class name="demoqa.practiceForm.PracticeFormTest">
+                <methods>
+                    <include name="practiceFormTest"/>
+                </methods>
+            </class>
+            <class name="demoqa.widgets.SelectMenuTest">
+                <methods>
+                    <include name="selectMenuTest"/>
+                    <include name="selectValueAndOneMenuTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
