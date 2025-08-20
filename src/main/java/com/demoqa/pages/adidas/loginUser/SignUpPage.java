@@ -70,7 +70,6 @@ public class SignUpPage extends BasePage {
         return this;
     }
 
-
     @Step("select date of birth {0}")
     public SignUpPage selectDateMonthYearCalendar(String dateMonthYear) {
 

@@ -1,11 +1,13 @@
 package com.demoqa.pages.adidas.loginUser;
 
+import com.demoqa.drivers.DriverManager;
 import com.demoqa.pages.BasePage;
 import com.demoqa.pages.adidas.selections.CartPage;
 import com.demoqa.pages.adidas.selections.ContactUsPage;
 import com.demoqa.pages.adidas.selections.ProductsPage;
 import com.demoqa.pages.adidas.selections.TestCasesPage;
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
@@ -122,5 +124,16 @@ public class HomePage extends BasePage {
     public CartPage clickCartPageBtn() {
         actions.click(cart);
         return new CartPage();
+    }
+
+    @Step("Click 'View Product' for any product on home page")
+    public ProductsPage clickViewProduct(String productName) {
+        WebElement viewProductBtn = DriverManager.getDriver().findElement(By.xpath(
+                "//div[@class='productinfo text-center']/p[contains(text(), '"+productName+"')" +
+                        "]/ancestor::div[@class='col-sm-4']//ul"
+        ));
+
+        actions.click(viewProductBtn);
+        return new ProductsPage();
     }
 }

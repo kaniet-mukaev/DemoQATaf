@@ -51,9 +51,6 @@ public class ProductsPage extends BasePage {
     @FindBy(xpath = "//a[@href='/view_cart']/u[text()='View Cart']")
     public WebElement viewCartBtn;
 
-    @Getter
-    public static int addedToCartProductsCount;
-
     @Step("verify user is navigated to all products page")
     public ProductsPage verifyUserIsNavigatedToProductsPage() {
         assertTrue(allProductsHeader.isDisplayed(), "All Products не виден");
@@ -116,28 +113,26 @@ public class ProductsPage extends BasePage {
         return this;
     }
 
-    @Step("getProductByName")
-    public WebElement getProductByName(String productName) {
-        WebElement product = DriverManager.getDriver().findElement(By.xpath(
-                "//div[@class='productinfo text-center']/p[contains(text(), '"+productName+"')]"));
-        return product;
-    }
-
-    @Step("get product ID number")
-    public int getProductIdByProductName(String productName) {
-        int productIdNumber = allProducts.indexOf(getProductByName(productName)) + 1;
-        return productIdNumber;
-    }
-
-    @Step("Hover over first product and click 'Add to cart'")
-    public ProductsPage addProductToCardByName(String productName) {
-        WebElement addToCartBtnByProductNumber = DriverManager.getDriver()
-                .findElement(By.xpath(
-                        "//a[@data-product-id='"
-                                +getProductIdByProductName(productName)+
-                                "' and @class='btn btn-default add-to-cart'])[2]"));
-        actions.click(addToCartBtnByProductNumber);
-        addedToCartProductsCount ++;
+    @Step("Add product to cart by name: {productName}")
+    public ProductsPage addProductToCartByName(String productName) {
+        WebElement productCard = DriverManager.getDriver().findElement(By.xpath(
+                "//div[@class='productinfo text-center'][.//p[contains(text(),'" + productName + "')]]"
+        ));
+        WebElement addToCartBtn = productCard.findElement(By.xpath(".//a[@class='btn btn-default add-to-cart']"));
+        actions.click(addToCartBtn);
         return this;
     }
+
+    @Step("click continue shopping button")
+    public ProductsPage clickContinueShoppingBtn() {
+        actions.click(continueShoppingBtn);
+        return this;
+    }
+
+    @Step("click view cart button")
+    public CartPage clickViewCartBtn() {
+        actions.click(viewCartBtn);
+        return new CartPage();
+    }
+
 }

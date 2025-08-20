@@ -2,6 +2,7 @@ package com.demoqa.helper;
 
 import com.demoqa.drivers.DriverManager;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -39,6 +40,13 @@ public class WebElementActions {
         scrollToElement(element);
         waitElementToBeDisplayed(element);
         element.sendKeys(text);
+        return this;
+    }
+
+    public WebElementActions typeWithEnter(WebElement element, String text) {
+        scrollToElement(element);
+        waitElementToBeDisplayed(element);
+        element.sendKeys(text + Keys.ENTER);
         return this;
     }
 
